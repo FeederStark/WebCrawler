@@ -1,8 +1,9 @@
+import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { Link, useRouteMatch } from 'react-router-dom';
 import api from '../../services/api';
-import { Header, RequestInfo, Urls } from './styles';
+import { Empty, Header, RequestInfo, Urls } from './styles';
 
 interface RequestParams {
   name: string;
@@ -43,9 +44,9 @@ const Request: React.FC = () => {
           </header>
         </RequestInfo>
       )}
-      <Urls>
-        {request &&
-          request.urls.map(url => (
+      {request && !_.isEmpty(request.urls) ? (
+        <Urls>
+          {request.urls.map(url => (
             <a key={url} href={url}>
               <div>
                 <strong>{url}</strong>
@@ -54,7 +55,10 @@ const Request: React.FC = () => {
               <FiChevronRight size={20} />
             </a>
           ))}
-      </Urls>
+        </Urls>
+      ) : (
+        <Empty>There are no urls found for this request.</Empty>
+      )}
     </>
   );
 };

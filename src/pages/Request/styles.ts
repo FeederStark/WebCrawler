@@ -121,3 +121,7 @@ export const Urls = styled.div`
     }
   }
 `;
+
+export const Empty = styled.p`
+  margin-top: 80px;
+`;
